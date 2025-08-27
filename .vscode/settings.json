@@ -48,7 +48,6 @@
     "editor.defaultFormatter": "tamasfe.even-better-toml"
   },
   "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
@@ -101,16 +100,6 @@
     "!Split",
     "!Join sequence"
   ],
-
-  // Shell settings
-  "shellformat.effectLanguages": [
-    "shellscript",
-    "dockerfile",
-    "dotenv"
-  ],
-  "shellformat.useEditorConfig": true,
-  "shellcheck.enableQuickFix": true,
-  "shellcheck.run": "onSave",
 
   // File associations
   "files.associations": {
