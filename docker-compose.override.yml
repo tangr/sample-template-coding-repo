@@ -18,7 +18,7 @@ services:
       # Mount source code for live reloading
       - .:/app:cached
       - /app/node_modules # Prevent overwriting node_modules
-      - dev_logs:/app/logs
+      - ./logs:/app/logs
     ports:
       # Additional debug ports
       - "8000:8000" # App port
@@ -66,8 +66,6 @@ services:
       - ADMINER_DEFAULT_SERVER=db
     depends_on:
       - db
-    networks:
-      - app_network
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -79,8 +77,6 @@ services:
       - REDIS_HOSTS=local:redis:6379
     depends_on:
       - redis
-    networks:
-      - app_network
 
   mailhog:
     image: mailhog/mailhog:latest
@@ -89,15 +85,3 @@ services:
     ports:
       - "1025:1025" # SMTP
       - "8025:8025" # Web UI
-    networks:
-      - app_network
-
-volumes:
-  postgres_dev_data:
-    driver: local
-  dev_logs:
-    driver: local
-
-networks:
-  app_network:
-    # Inherit from base compose file
