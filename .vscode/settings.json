@@ -122,5 +122,35 @@
 
   // Git settings
   "git.autofetch": true,
-  "git.confirmSync": false
+  "git.confirmSync": false,
+
+  // Spell checker settings
+  "cSpell.words": [
+    "healthcheck",
+    "dockerfile",
+    "postgres",
+    "redis",
+    "nginx",
+    "adminer",
+    "mailhog",
+    "debugpy",
+    "uvicorn",
+    "fastapi",
+    "pydantic",
+    "sqlalchemy",
+    "alembic",
+    "pytest",
+    "pylint",
+    "flake8",
+    "isort",
+    "mypy",
+    "venv",
+    "virtualenv",
+    "pyproject",
+    "toml",
+    "yaml",
+    "yml",
+    "jsonc",
+    "vscode"
+  ]
 }
