@@ -3,8 +3,6 @@
 # Use: docker-compose up (automatically includes override)
 # Production: docker-compose -f docker-compose.yml up (excludes override)
 
-version: "3.8"
-
 services:
   app:
     build:
