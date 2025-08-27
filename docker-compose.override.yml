@@ -1,0 +1,105 @@
+# Docker Compose override for development environment
+# This file automatically extends docker-compose.yml when running docker-compose commands
+# Use: docker-compose up (automatically includes override)
+# Production: docker-compose -f docker-compose.yml up (excludes override)
+
+version: "3.8"
+
+services:
+  app:
+    build:
+      target: production # Override to use development target if needed
+    environment:
+      - NODE_ENV=development
+      - DEBUG=true
+      - LOG_LEVEL=debug
+      - PYTHONPATH=/app
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    volumes:
+      # Mount source code for live reloading
+      - .:/app:cached
+      - /app/node_modules # Prevent overwriting node_modules
+      - dev_logs:/app/logs
+    ports:
+      # Additional debug ports
+      - "8000:8000" # App port
+      - "5678:5678" # Python debugger (debugpy)
+      - "9229:9229" # Node.js debugger
+    command: >
+      sh -c "
+        pip install debugpy &&
+        python -m debugpy --listen 0.0.0.0:5678 --wait-for-client main.py
+      "
+    stdin_open: true
+    tty: true
+
+  db:
+    environment:
+      # Development database settings
+      - POSTGRES_DB=sampledb_dev
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=dev_password
+    ports:
+      - "5433:5432" # Different port to avoid conflicts
+    volumes:
+      # Use named volume for development (easier to reset)
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./scripts/dev-init.sql:/docker-entrypoint-initdb.d/dev-init.sql:ro
+
+  redis:
+    command: redis-server --appendonly yes # Remove password for dev
+    ports:
+      - "6380:6379" # Different port for development
+
+  nginx:
+    # Disable nginx in development - access app directly
+    profiles:
+      - production
+
+  # Additional development services
+  adminer:
+    image: adminer:latest
+    container_name: sample-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: sample-redis-ui
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    depends_on:
+      - redis
+    networks:
+      - app_network
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: sample-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
+    networks:
+      - app_network
+
+volumes:
+  postgres_dev_data:
+    driver: local
+  dev_logs:
+    driver: local
+
+networks:
+  app_network:
+    # Inherit from base compose file
