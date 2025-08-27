@@ -44,6 +44,9 @@
   "[yml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.tabSize": 4

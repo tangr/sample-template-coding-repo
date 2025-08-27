@@ -15,9 +15,10 @@
     // Go
     "golang.go",
 
-    // YAML/JSON
+    // YAML/JSON/TOML
     "redhat.vscode-yaml",
     "ms-vscode.vscode-json",
+    "tamasfe.even-better-toml",
 
     // Docker
     "ms-azuretools.vscode-docker",
