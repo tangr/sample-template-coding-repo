@@ -189,6 +189,30 @@
         "focus": false,
         "panel": "shared"
       }
+    },
+    {
+      "label": "Shell: Check Scripts",
+      "type": "shell",
+      "command": "shellcheck",
+      "args": ["**/*.sh"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Shell: Format Scripts",
+      "type": "shell",
+      "command": "shfmt",
+      "args": ["-w", "-i", "2", "**/*.sh"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent"
+      }
     }
   ]
 }

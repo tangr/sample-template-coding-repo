@@ -15,10 +15,14 @@
     // Go
     "golang.go",
 
-    // YAML/JSON/TOML
+    // YAML/JSON/TOML/Properties
     "redhat.vscode-yaml",
     "ms-vscode.vscode-json",
     "tamasfe.even-better-toml",
+
+    // Shell scripting
+    "timonwong.shellcheck",
+    "foxundermoon.shell-format",
 
     // Docker
     "ms-azuretools.vscode-docker",
