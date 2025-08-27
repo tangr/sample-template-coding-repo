@@ -11,7 +11,6 @@ services:
       - NODE_ENV=development
       - DEBUG=true
       - LOG_LEVEL=debug
-      - PYTHONPATH=/app
       - FLASK_ENV=development
       - FLASK_DEBUG=1
     volumes:
@@ -22,7 +21,7 @@ services:
     ports:
       # Additional debug ports
       - "8000:8000" # App port
-      - "5678:5678" # Python debugger (debugpy)
+      - "5678:5678" # Python debugger
       - "9229:9229" # Node.js debugger
     command: >
       sh -c "
@@ -31,57 +30,3 @@ services:
       "
     stdin_open: true
     tty: true
-
-  db:
-    environment:
-      # Development database settings
-      - POSTGRES_DB=sampledb_dev
-      - POSTGRES_USER=dev_user
-      - POSTGRES_PASSWORD=dev_password
-    ports:
-      - "5433:5432" # Different port to avoid conflicts
-    volumes:
-      # Use named volume for development (easier to reset)
-      - postgres_dev_data:/var/lib/postgresql/data
-      - ./scripts/dev-init.sql:/docker-entrypoint-initdb.d/dev-init.sql:ro
-
-  redis:
-    command: redis-server --appendonly yes # Remove password for dev
-    ports:
-      - "6380:6379" # Different port for development
-
-  nginx:
-    # Disable nginx in development - access app directly
-    profiles:
-      - production
-
-  # Additional development services
-  adminer:
-    image: adminer:latest
-    container_name: sample-adminer
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    environment:
-      - ADMINER_DEFAULT_SERVER=db
-    depends_on:
-      - db
-
-  redis-commander:
-    image: rediscommander/redis-commander:latest
-    container_name: sample-redis-ui
-    restart: unless-stopped
-    ports:
-      - "8081:8081"
-    environment:
-      - REDIS_HOSTS=local:redis:6379
-    depends_on:
-      - redis
-
-  mailhog:
-    image: mailhog/mailhog:latest
-    container_name: sample-mailhog
-    restart: unless-stopped
-    ports:
-      - "1025:1025" # SMTP
-      - "8025:8025" # Web UI

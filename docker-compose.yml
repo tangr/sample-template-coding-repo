@@ -11,8 +11,6 @@ services:
       - "8000:8000"
     environment:
       - NODE_ENV=production
-      - PYTHONPATH=/app
-      - DATABASE_URL=postgresql://user:password@db:5432/sampledb
       - REDIS_URL=redis://redis:6379/0
     volumes:
       - ./logs:/app/logs
@@ -27,18 +25,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
-  redis:
-    image: redis:7-alpine
-    container_name: sample-redis
-    restart: unless-stopped
-    command: redis-server --appendonly yes --requirepass redispassword
-    volumes:
-      - ${DATA_DIR}/redis_data:/data
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
