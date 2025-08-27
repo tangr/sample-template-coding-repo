@@ -72,14 +72,26 @@
   "yaml.format.singleQuote": false,
   "yaml.format.bracketSpacing": true,
   "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "/.github/workflows/*",
-    "https://json.schemastore.org/docker-compose.json": [
-      "docker-compose.yml",
-      "docker-compose.yaml",
-      "compose.yml",
-      "compose.yaml"
-    ]
+    "https://json.schemastore.org/github-workflow.json": "/.github/workflows/*"
   },
+  "yaml.customTags": [
+    "!And",
+    "!If",
+    "!Not",
+    "!Equals",
+    "!Or",
+    "!FindInMap sequence",
+    "!Base64",
+    "!Cidr",
+    "!Ref",
+    "!Sub",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Select",
+    "!Split",
+    "!Join sequence"
+  ],
 
   // File associations
   "files.associations": {
