@@ -48,6 +48,7 @@
     "editor.defaultFormatter": "tamasfe.even-better-toml"
   },
   "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
