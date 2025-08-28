@@ -4,6 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
+      platforms:
+        - linux/amd64
+        - linux/arm64
     image: sample-app:latest
     container_name: sample-app
     restart: unless-stopped
