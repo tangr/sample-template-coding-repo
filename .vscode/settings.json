@@ -18,6 +18,9 @@
   },
 
   // Language-specific settings
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -105,6 +108,7 @@
 
   // File associations
   "files.associations": {
+    "*.md": "markdown",
     "*.yml": "yaml",
     "*.yaml": "yaml",
     ".env*": "properties",
